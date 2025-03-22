@@ -1,0 +1,37 @@
+Code : 
+
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        n = len(digits)
+
+        for i in range(n - 1, -1, -1):   # Loop from the last digit to the first
+            if digits[i] < 9:  
+                digits[i] += 1            # Add 1 if the digit is less than 9
+                return digits
+            digits[i] = 0                 # If digit is 9, set it to 0 and continue
+
+        # If all digits were 9 (e.g., 999 -> 1000), add 1 at the front
+        return [1] + digits 
+
+Explaination : 
+n = len(digits)
+
+Get the length of the digits array.
+
+for i in range(n - 1, -1, -1)
+
+Loop through the array from right to left (starting from the last digit).
+
+if digits[i] < 9:
+
+If the current digit is less than 9, simply add 1 to it and return the updated list.
+
+digits[i] = 0
+
+If the current digit is 9, set it to 0 and continue the loop.
+
+This handles cases like [9, 9, 9] → [0, 0, 0] → which later becomes [1, 0, 0, 0].
+
+Edge case: all digits are 9
+
+After the loop, if all digits were 9 (e.g., 999 → 1000), add 1 at the front of the list.
