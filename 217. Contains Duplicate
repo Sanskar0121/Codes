@@ -1,0 +1,49 @@
+Code: 
+    class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        h = set() 
+        for num in nums:
+            if num in h:
+                return True
+            else:
+                h.add(num)
+        return False 
+
+Explanation : 
+
+🛠️ Simple Explanation of the Code
+h = set()
+
+Creates an empty set called h to store unique numbers.
+
+Sets automatically prevent duplicates.
+
+for num in nums:
+
+Loops through each element num in the list nums.
+
+if num in h:
+
+Checks if the current number num is already in the set.
+
+If it is, that means it's a duplicate → return True immediately.
+
+else: h.add(num)
+
+If the number is not in the set, add it to the set.
+
+return False
+
+After the loop, if no duplicates are found, return False.
+
+✅ Example Execution
+python
+Copy
+Edit
+nums = [1, 2, 3, 4, 2]
+
+# Iteration 1: num = 1 → not in h → add to h → h = {1}
+# Iteration 2: num = 2 → not in h → add to h → h = {1, 2}
+# Iteration 3: num = 3 → not in h → add to h → h = {1, 2, 3}
+# Iteration 4: num = 4 → not in h → add to h → h = {1, 2, 3, 4}
+# Iteration 5: num = 2 → already in h → return True (duplicate found)
