@@ -1,0 +1,45 @@
+class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        result = [] 
+        for i in nums1:
+            if(i in nums2):
+                result.append(i) 
+                nums2.remove(i) 
+        return result 
+
+Explaination of Code 
+
+🛠️ Code Breakdown
+result = []
+
+Creates an empty list called result to store the common elements between nums1 and nums2.
+
+for i in nums1:
+
+Loops through each element i in the list nums1.
+
+if i in nums2:
+
+Checks if the current element i from nums1 is also present in nums2.
+
+result.append(i)
+
+If the element is present in nums2, it adds (appends) that element to the result list.
+
+nums2.remove(i)
+
+Removes the matched element from nums2 to avoid counting it multiple times. This ensures that if the same element appears multiple times in nums1 but only once in nums2, it won't be added repeatedly.
+
+return result
+
+After the loop is finished, it returns the result list containing the common elements.
+
+nums1 = [1, 2, 2, 1]
+nums2 = [2, 2]
+
+# Iteration 1: i = 1 → not in nums2 → skip
+# Iteration 2: i = 2 → in nums2 → append 2 to result, remove 2 from nums2
+# Iteration 3: i = 2 → in nums2 (again) → append 2 to result, remove the remaining 2 from nums2
+# Iteration 4: i = 1 → not in nums2 → skip
+
+# Final result: [2, 2]
