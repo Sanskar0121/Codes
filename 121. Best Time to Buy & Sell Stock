@@ -14,6 +14,109 @@ class Solution:
                 max_profit = profit 
             
         return max_profit 
+
+# Explaination 
+
+Sure! Here’s a simple explanation of the code:
+
+---
+
+### 💡 **What does the function do?**
+The `maxProfit` function finds the **maximum profit** you can make by buying and selling a stock **once**.
+
+✅ **Example:**
+```
+Prices:  [7, 1, 5, 3, 6, 4]  
+Maximum Profit:  5  
+(You buy at 1 and sell at 6)
+```
+
+---
+
+### 🔥 **How the code works**
+
+1️⃣ **Initialize Variables:**
+```python
+min_price = float('inf')   # Start with the highest possible value
+max_profit = 0              # Start with no profit
+```
+- `min_price` → Keeps track of the **lowest price** so far.
+- `max_profit` → Stores the **best profit** you can get.
+
+---
+
+2️⃣ **Loop through each price:**
+```python
+for price in prices:
+```
+- You go through the list **one price at a time**.
+
+---
+
+3️⃣ **Check for the lowest price:**
+```python
+if price < min_price:
+    min_price = price 
+```
+- If the current `price` is smaller than `min_price`, update `min_price`.
+- This helps you **find the lowest price to buy**.
+
+✅ Example:
+```
+Prices: [7, 1, 5, 3, 6, 4]
+
+Iteration 1 → min_price = 7  
+Iteration 2 → min_price = 1 (updated, since 1 < 7)
+Iteration 3 → min_price stays 1  
+Iteration 4 → min_price stays 1  
+Iteration 5 → min_price stays 1  
+Iteration 6 → min_price stays 1  
+```
+
+---
+
+4️⃣ **Calculate the profit:**
+```python
+profit = price - min_price 
+```
+- **Profit** = Current price − Lowest price so far.
+
+✅ Example:
+```
+At price 5 → profit = 5 - 1 = 4  
+At price 6 → profit = 6 - 1 = 5  
+```
+
+---
+
+5️⃣ **Update max profit:**
+```python
+if profit > max_profit:
+    max_profit = profit
+```
+- If the current profit is **greater** than the previous `max_profit`, update it.
+
+✅ Example:
+```
+At price 5 → max_profit = 4  
+At price 6 → max_profit = 5 (new max profit)
+```
+
+---
+
+6️⃣ **Return the maximum profit:**
+```python
+return max_profit
+```
+- Finally, return the highest profit you found.
+
+---
+
+### ✅ **Key Takeaway**
+1. Track the **lowest price** as you iterate.  
+2. Calculate the **profit** at each step.  
+3. Keep updating the **max profit** if you find a better one.  
+4. Finally, return the maximum profit you can make! 🎯
             
         
         
