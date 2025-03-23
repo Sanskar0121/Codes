@@ -1,0 +1,78 @@
+Code : 
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        n = len(matrix) 
+        A = matrix 
+
+        # Transpose 
+        for i in range(n):
+            for j in range(i+1, n):
+                A[i][j], A[j][i] = A[j][i], A[i][j] 
+        
+        # Reflection 
+        for i in range(n):
+            for j in range(n // 2):
+                A[i][j], A[i][n-j-1] = A[i][n-j-1], A[i][j] 
+
+    # Explanation 
+
+    Sure! Here’s a simple explanation of the code:
+
+---
+
+### 🛠️ **What does the function do?**
+The `rotate` function rotates an **N x N** matrix **90 degrees clockwise**.
+
+For example:
+```
+Input:               Output:
+1  2  3              7  4  1  
+4  5  6     ➝        8  5  2  
+7  8  9              9  6  3  
+```
+
+---
+
+### 🔥 **Step 1: Transpose the matrix**
+- **Transpose** means swapping **rows with columns**.
+- This is done by swapping `A[i][j]` with `A[j][i]` for **all pairs** where `j > i` (to avoid swapping twice).
+
+✅ **Example of transpose:**
+```
+Original:          Transposed:
+1  2  3            1  4  7  
+4  5  6   ➝        2  5  8  
+7  8  9            3  6  9  
+```
+💡 **How it works:**
+- `(0,1)` swaps with `(1,0)`
+- `(0,2)` swaps with `(2,0)`
+- `(1,2)` swaps with `(2,1)`
+
+---
+
+### 🔥 **Step 2: Reflect the matrix**
+- **Reflection** means flipping each row horizontally.
+- Swap the elements from **left to right** in each row.
+
+✅ **Example of reflection:**
+```
+Transposed:        Rotated (90° clockwise):
+1  4  7            7  4  1  
+2  5  8   ➝        8  5  2  
+3  6  9            9  6  3  
+```
+💡 **How it works:**
+- In row 1: `1` swaps with `7`
+- In row 2: `2` swaps with `8`
+- In row 3: `3` swaps with `9`
+
+---
+
+### ✅ **Key Takeaway**
+1. **Transpose** → Swap rows with columns.
+2. **Reflect** → Flip each row horizontally.
+3. This gives the matrix rotated **90 degrees clockwise**. 🎯
