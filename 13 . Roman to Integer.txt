@@ -14,3 +14,121 @@ class Solution:
                 summ += d[s[i]] 
                 i += 1
         return summ 
+
+# Explanation 
+
+Sure! Here’s a simple explanation of the code:
+
+---
+
+### 💡 **What does the function do?**
+The `romanToInt` function **converts a Roman numeral** string into an **integer**.
+
+✅ **Example:**
+```
+Input: "IX"   
+Output: 9  
+(I before X means 10 - 1 = 9)
+```
+
+---
+
+### 🔥 **How the code works**
+
+1️⃣ **Create a dictionary for Roman numeral values:**
+```python
+d = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000} 
+```
+- This dictionary maps **Roman numerals** to their integer values.
+
+✅ **Example:**
+```
+'I' → 1  
+'V' → 5  
+'X' → 10  
+'L' → 50  
+'C' → 100  
+'D' → 500  
+'M' → 1000  
+```
+
+---
+
+2️⃣ **Initialize variables:**
+```python
+summ = 0          # To store the final result  
+n = len(s)        # Length of the input string  
+i = 0             # Index to iterate through the string  
+```
+
+---
+
+3️⃣ **Iterate through the Roman numeral string:**
+```python
+while i < n:
+```
+- The `while` loop goes through each **character** of the string.
+
+---
+
+4️⃣ **Check for subtraction rule:**
+```python
+if i < n - 1 and d[s[i]] < d[s[i + 1]]:
+```
+- **Roman numerals** sometimes use **subtraction rules**.  
+- If the **current numeral** is **smaller** than the **next one**, you **subtract** it.
+
+✅ **Example of subtraction:**
+```
+"IX" → 9  
+    - 'I' (1) is smaller than 'X' (10)  
+    - Add: 10 - 1 = 9  
+```
+
+---
+
+5️⃣ **Handle subtraction:**
+```python
+summ += d[s[i + 1]] - d[s[i]]
+i += 2  
+```
+- Add the **difference** of the next and current numeral to `summ`.
+- Move **two steps** ahead since you processed **two characters**.
+
+✅ **Example:**
+```
+For "IX" → summ = 9, i jumps by 2  
+```
+
+---
+
+6️⃣ **Handle regular addition:**
+```python
+else:  
+    summ += d[s[i]]  
+    i += 1  
+```
+- If the subtraction rule **doesn't apply**, just add the current numeral to `summ`.
+- Move **one step** ahead.
+
+✅ **Example:**
+```
+For "XII" → summ = 10 + 1 + 1 = 12  
+```
+
+---
+
+7️⃣ **Return the final result:**
+```python
+return summ  
+```
+- Finally, return the **sum** of all Roman numerals converted to an integer.
+
+---
+
+### ✅ **Key Takeaway**
+1. **Dictionary mapping**: Maps Roman numerals to integer values.  
+2. **Subtraction rule**: If a smaller numeral comes **before** a larger one, **subtract** it.  
+3. **Regular addition**: Otherwise, add the numeral's value.  
+4. **Efficient iteration**: Use `i += 2` for subtraction pairs and `i += 1` otherwise.  
+5. **Return the total** sum at the end. 🎯
