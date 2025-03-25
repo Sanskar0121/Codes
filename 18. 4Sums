@@ -1,0 +1,220 @@
+Code : 
+from typing import List
+
+class Solution:
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        n = len(nums)
+        answer = []  
+        nums.sort()
+
+        for i in range(n):
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+
+            for j in range(i + 1, n):
+                if j > i + 1 and nums[j] == nums[j - 1]:
+                    continue
+
+                lo, hi = j + 1, n - 1
+                while lo < hi:
+                    summ = nums[i] + nums[j] + nums[lo] + nums[hi]
+
+                    if summ == target:
+                        answer.append([nums[i], nums[j], nums[lo], nums[hi]])
+                        
+                        # Move both pointers
+                        lo += 1
+                        hi -= 1
+
+                        # Skip duplicates
+                        while lo < hi and nums[lo] == nums[lo - 1]:
+                            lo += 1
+                        while lo < hi and nums[hi] == nums[hi + 1]:
+                            hi -= 1
+
+                    elif summ < target:
+                        lo += 1
+                    else:
+                        hi -= 1
+
+        return answer 
+
+    Explanation : 
+
+    ### 🛠️ **Explanation of the `fourSum` Code in a Simple Way**
+
+This Python code solves the **4Sum problem**, which means:
+- You are given an array of integers (`nums`) and a target value.
+- You need to find **all unique quadruplets** (4 numbers) that add up to the **target**.
+
+---
+
+### ✅ **Step-by-step Breakdown**
+
+#### 1️⃣ **Imports and Initialization**
+```python
+from typing import List
+```
+- `from typing import List`: Allows the function to specify that it accepts a **list of integers** and returns a **list of lists**.
+
+```python
+n = len(nums) 
+answer = []  
+nums.sort()
+```
+- `n`: The length of the input array.
+- `answer`: An empty list to store the valid quadruplets.
+- `nums.sort()`: The array is sorted in ascending order.  
+   - **Why sort?**  
+     - Sorting makes it easier to avoid duplicates and efficiently use the **two-pointer technique**.
+
+---
+
+#### 2️⃣ **First Loop → Selects the First Number**
+```python
+for i in range(n):
+    if i > 0 and nums[i] == nums[i - 1]:
+        continue
+```
+- **Outer loop** → Iterates through the array to pick the **first number**.
+- **Skip duplicates**:
+    - `if i > 0 and nums[i] == nums[i - 1]`
+    - If the current number is the **same as the previous one**, skip it to avoid duplicate quadruplets.
+
+---
+
+#### 3️⃣ **Second Loop → Selects the Second Number**
+```python
+for j in range(i + 1, n):
+    if j > i + 1 and nums[j] == nums[j - 1]:
+        continue
+```
+- **Second loop** → Selects the **second number**.
+- **Skip duplicates again**:
+    - `if j > i + 1 and nums[j] == nums[j - 1]`
+    - This prevents selecting the same second number twice, avoiding duplicates.
+
+---
+
+#### 4️⃣ **Two-pointer Technique**
+```python
+lo, hi = j + 1, n - 1
+```
+- `lo`: Pointer starting just **after** the second number.
+- `hi`: Pointer starting at the **end** of the array.
+- These two pointers will help you find the **third** and **fourth** numbers.
+
+---
+
+#### 5️⃣ **Find the Sum**
+```python
+while lo < hi:
+    summ = nums[i] + nums[j] + nums[lo] + nums[hi]
+```
+- While the `lo` pointer is **before** the `hi` pointer:
+    - Calculate the **sum** of the four numbers:
+\[
+\text{{summ}} = \text{{nums[i]}} + \text{{nums[j]}} + \text{{nums[lo]}} + \text{{nums[hi]}}
+\]
+
+---
+
+#### 6️⃣ **Check the Conditions**
+```python
+if summ == target:
+    answer.append([nums[i], nums[j], nums[lo], nums[hi]])
+```
+- If the sum **equals** the target:
+    - Append the quadruplet `[nums[i], nums[j], nums[lo], nums[hi]]` to the `answer` list.
+
+---
+
+#### 7️⃣ **Move the Pointers**
+```python
+lo += 1
+hi -= 1
+```
+- After finding a valid quadruplet:
+    - **Move both pointers inward**:
+        - `lo += 1` → Move right to increase the sum.
+        - `hi -= 1` → Move left to decrease the sum.
+
+---
+
+#### 8️⃣ **Skip Duplicates Again**
+```python
+while lo < hi and nums[lo] == nums[lo - 1]:
+    lo += 1
+while lo < hi and nums[hi] == nums[hi + 1]:
+    hi -= 1
+```
+- **Avoid duplicates**:
+    - Move `lo` forward if you encounter duplicates on the **left**.
+    - Move `hi` backward if you encounter duplicates on the **right**.
+
+---
+
+#### 9️⃣ **Handle Other Sums**
+```python
+elif summ < target:
+    lo += 1  
+else:
+    hi -= 1
+```
+- If the sum is **less than the target**, move `lo` right to **increase** the sum.
+- If the sum is **greater than the target**, move `hi` left to **decrease** the sum.
+
+---
+
+#### 1️⃣0️⃣ **Return the Result**
+```python
+return answer
+```
+- After the loops finish, return the `answer` list containing all valid quadruplets.
+
+---
+
+### 🔥 **Example Walkthrough**
+Input:
+```python
+nums = [1, 0, -1, 0, -2, 2]
+target = 0
+```
+
+1. **Sorted array** → `[-2, -1, 0, 0, 1, 2]`
+2. Loop through the array:
+   - `i = 0 → -2`
+     - `j = 1 → -1`
+     - `lo = 2 → 0`
+     - `hi = 5 → 2`
+     - `-2 + (-1) + 0 + 2 = -1` → **Move `lo`**
+     - `lo = 3 → 0`
+     - `-2 + (-1) + 0 + 2 = -1` → **Move `lo`**
+     - `lo = 4 → 1`
+     - `-2 + (-1) + 1 + 2 = 0` → ✅ **Valid quadruplet**
+   - Continue iterating:
+     - `i = 0 → -2`
+     - `j = 2 → 0`
+     - `lo = 3 → 0`
+     - `hi = 5 → 2`
+     - `-2 + 0 + 0 + 2 = 0` → ✅ **Valid quadruplet**
+     - `i = 1 → -1`
+     - `j = 2 → 0`
+     - `lo = 3 → 0`
+     - `hi = 5 → 2`
+     - `-1 + 0 + 0 + 1 = 0` → ✅ **Valid quadruplet**
+
+✅ **Final Output:**
+```
+[[-2, -1, 1, 2], [-2, 0, 0, 2], [-1, 0, 0, 1]]
+```
+
+---
+
+### 🚀 **Key Takeaways**
+1. **Time Complexity:** \(O(n^3)\)
+   - Sorting takes \(O(n \log n)\).
+   - The nested loops and two-pointer technique make it \(O(n^3)\).
+2. **Space Complexity:** \(O(1)\) → Excluding the result list.
+
+✅ This code efficiently finds all unique quadruplets that sum to the target by using **sorting, nested loops, and the two-pointer technique** while avoiding duplicates.
