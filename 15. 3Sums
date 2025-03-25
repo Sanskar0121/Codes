@@ -1,0 +1,178 @@
+Code : 
+
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort() 
+        n = len(nums) 
+        answer = [] 
+
+        for i in range(n):
+            if nums[i] > 0:
+                break
+            elif i > 0 and nums[i] == nums[i-1]:
+                continue 
+            
+            lo, hi = i+1, n-1 
+            while lo < hi: 
+                summ = nums[i] + nums[lo] + nums[hi] 
+                if summ == 0: 
+                    answer.append([nums[i], nums[lo], nums[hi]]) 
+                    lo, hi = lo+1, hi-1
+                    while lo < hi and nums[lo] == nums[lo-1]:
+                        lo += 1 
+                    while lo < hi and nums[hi] == nums[hi+1]:
+                        hi -= 1
+                elif summ < 0:
+                    lo += 1
+                else:
+                    hi -= 1
+
+        return answer
+
+    Explaination : 
+
+    ### 🛠️ **Explanation of the Code in a Simple Way**
+
+This Python code solves the **3Sum problem**, which means:
+- You are given an array of integers.
+- You need to find **all unique triplets** (three numbers) that add up to **zero**.
+
+---
+
+### ✅ **Step-by-step Breakdown**
+
+1. **Sorting the Array**
+```python
+nums.sort() 
+```
+- The array is sorted in ascending order.
+- Sorting makes it easier to find and skip duplicates.
+
+---
+
+2. **Initialize Variables**
+```python
+n = len(nums)  
+answer = []
+```
+- `n` → length of the array.
+- `answer` → to store the valid triplets.
+
+---
+
+3. **Loop Through the Array**
+```python
+for i in range(n):
+    if nums[i] > 0: 
+        break  
+    elif i > 0 and nums[i] == nums[i-1]:
+        continue  
+```
+- The loop iterates through each element `nums[i]`.
+- **Condition 1:** `if nums[i] > 0`: 
+    - Since the array is sorted, if you encounter a positive number, all further numbers will also be positive. 
+    - **Break** the loop because positive numbers cannot sum to zero with other positive numbers.
+- **Condition 2:** `elif i > 0 and nums[i] == nums[i-1]`:
+    - **Skip duplicates**. 
+    - If the current number is the same as the previous one, skip it to avoid duplicate triplets.
+
+---
+
+4. **Two-pointer Technique**
+```python
+lo, hi = i + 1, n - 1
+```
+- `lo` → pointer starting just **after** `i`.
+- `hi` → pointer starting at the **end** of the array.
+
+---
+
+5. **Find the Sum**
+```python
+while lo < hi:
+    summ = nums[i] + nums[lo] + nums[hi]  
+```
+- The **sum** of the three numbers is calculated:
+\[
+\text{{summ}} = \text{{nums[i]}} + \text{{nums[lo]}} + \text{{nums[hi]}}
+\]
+
+---
+
+6. **Check the Conditions**
+```python
+if summ == 0:
+    answer.append([nums[i], nums[lo], nums[hi]])  
+```
+- If the **sum is zero**, it means you have found a valid triplet. 
+- Add it to the `answer` list.
+
+---
+
+7. **Move the Pointers**
+```python
+lo, hi = lo + 1, hi - 1
+```
+- Move both pointers inward to check for other potential triplets.
+
+---
+
+8. **Skip Duplicates Again**
+```python
+while lo < hi and nums[lo] == nums[lo - 1]:
+    lo += 1  
+while lo < hi and nums[hi] == nums[hi + 1]:
+    hi -= 1
+```
+- **Skip duplicate values** again while moving the pointers:
+    - `nums[lo] == nums[lo - 1]`: skip duplicates on the **left** side.
+    - `nums[hi] == nums[hi + 1]`: skip duplicates on the **right** side.
+
+---
+
+9. **Handle Other Sums**
+```python
+elif summ < 0:
+    lo += 1  
+else:
+    hi -= 1
+```
+- If the sum is **less than zero**, move `lo` to the right to **increase** the sum.
+- If the sum is **greater than zero**, move `hi` to the left to **decrease** the sum.
+
+---
+
+### 🔥 **Example Walkthrough**
+Input:
+```
+nums = [-4, -1, -1, 0, 1, 2]
+```
+1. **Sorted array** → `[-4, -1, -1, 0, 1, 2]`
+2. Loop through the array:
+   - `i = 0 → -4`
+     - `lo = 1 → -1`
+     - `hi = 5 → 2`
+     - `-4 + (-1) + 2 = -3` → move `lo`
+     - `lo = 2 → -1`
+     - `-4 + (-1) + 2 = -3` → move `lo`
+     - No valid triplet.
+   - `i = 1 → -1`
+     - `lo = 2 → -1`
+     - `hi = 5 → 2`
+     - `-1 + (-1) + 2 = 0` → **Valid triplet** `[-1, -1, 2]`
+   - `i = 2 → skip` (duplicate)
+   - `i = 3 → 0`
+     - `lo = 4 → 1`
+     - `hi = 5 → 2`
+     - `0 + 1 + 2 = 3` → sum is too high, move `hi`
+3. **Output:** 
+```
+[[-1, -1, 2], [-1, 0, 1]]
+```
+
+---
+
+### 🚀 **Key Takeaways**
+✅ **Time Complexity:** \(O(n^2)\) → Sorting takes \(O(n \log n)\) and the two-pointer technique takes \(O(n)\) for each element.  
+✅ **Space Complexity:** \(O(1)\) (excluding the output list).  
+✅ **Efficiency:** The code uses **sorting + two pointers** to avoid unnecessary repetitions, making it efficient.
