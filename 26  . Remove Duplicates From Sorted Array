@@ -9,3 +9,97 @@ class Solution:
                 nums[j] = nums[i] 
                 j += 1
         return j 
+
+Explaination 
+
+### ✅ **Explanation of Your Code in Simple Terms**
+
+---
+
+### 📌 **1. The Main Function:**
+```python
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+```
+- You have a class `Solution` with a method `removeDuplicates()` that takes a **list of integers** `nums` as input.  
+- The goal is to **remove duplicate values** **in-place** (without creating a new list) and return the number of **unique elements**.  
+
+---
+
+### 📌 **2. Variables Initialization:**
+```python
+n = len(nums)    # Get the length of the list
+j = 1            # Pointer for the next unique position
+```
+- `n` → Stores the **length of the list**.  
+- `j` → A pointer that tracks where the **next unique value** should be placed.  
+    - Starts at `1` because the **first element is always unique**.
+
+---
+
+### 📌 **3. Loop Through the List:**
+```python
+for i in range(1, n):
+```
+- This **loop starts at index 1** (second element) and goes through the entire list.  
+- You start at `1` because there's no need to compare the first element with anything before it.
+
+---
+
+### 📌 **4. Check for Duplicates:**
+```python
+if nums[i] != nums[i - 1]:
+```
+- **Condition:**  
+    - If the **current element** `nums[i]` is **different from the previous one** `nums[i - 1]`:  
+        → It means you have found a **new unique value**.  
+
+---
+
+### 📌 **5. Place Unique Values at the Correct Position:**
+```python
+nums[j] = nums[i]
+j += 1
+```
+- The **next unique value** is placed at index `j`.  
+- You then **move the pointer `j` one step ahead** to prepare for the next unique value.
+
+---
+
+### 📌 **6. Return the Count of Unique Elements:**
+```python
+return j
+```
+- After the loop finishes, `j` will hold the **count of unique elements**.  
+- You return `j` as the result.  
+- The first `j` elements in `nums` will contain the **unique values**, while the rest of the list may still contain leftover duplicates (which you can ignore).
+
+---
+
+### 💡 **Example Walkthrough: `nums = [1, 1, 2, 3, 3]`**
+1. **Initial list:**  
+   `nums = [1, 1, 2, 3, 3]`  
+   `j = 1`  
+2. **Loop starts:**  
+    - `i = 1`: `nums[1] == nums[0]` → (both are `1`) → **skip**  
+    - `i = 2`: `nums[2] != nums[1]` → (unique value `2`)  
+        - Place `2` at `nums[1]`:  
+          → `nums = [1, 2, 2, 3, 3]`  
+        - `j = 2`  
+    - `i = 3`: `nums[3] != nums[2]` → (unique value `3`)  
+        - Place `3` at `nums[2]`:  
+          → `nums = [1, 2, 3, 3, 3]`  
+        - `j = 3`  
+    - `i = 4`: `nums[4] == nums[3]` → (both are `3`) → **skip**  
+3. **Final Result:**  
+    - `j = 3` → **3 unique values**: `[1, 2, 3]`
+
+---
+
+### 🚀 **Key Takeaway:**
+- **In-place removal of duplicates:**  
+    - You don’t create a new list; you **modify the original list**.  
+- **Time Complexity:** \(O(n)\) → Iterates through the list once.  
+- **Space Complexity:** \(O(1)\) → Uses only a few extra variables, no new list.
+
+✅ This is an efficient solution for **removing duplicates from a sorted array**. 🎯
